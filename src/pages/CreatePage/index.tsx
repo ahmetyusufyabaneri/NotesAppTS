@@ -5,7 +5,7 @@ export type CreatePageProps = {
   handleSubmit: (noteData: INoteData) => void;
   createTag: (tag: ITag) => void;
   availableTags: ITag[];
-};
+} & Partial<INoteData>;
 
 const CreatePage = ({
   handleSubmit,

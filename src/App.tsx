@@ -6,6 +6,7 @@ import EditPage from "./pages/EditPage";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { INote, INoteData, ITag } from "./types";
 import { v4 } from "uuid";
+import Layout from "./components/Layout";
 
 const App = () => {
   const [notes, setNotes] = useLocalStorage<INote[]>("notes", []);
@@ -24,7 +25,18 @@ const App = () => {
     setNotes((prev) => [...prev, newNote]);
   };
 
-  console.log(notes);
+  const deleteNote = (id: string) => {
+    setNotes((prev) => prev.filter((note) => note.id !== id));
+  };
+
+  const editNote = (id: string, updatedData: INoteData) => {
+    const updated = notes.map((note) =>
+      note.id == id ? { id, ...updatedData } : note
+    );
+
+    setNotes(updated);
+  };
+
   return (
     <BrowserRouter>
       <Routes>
@@ -42,9 +54,18 @@ const App = () => {
             />
           }
         />
-        <Route path="/:id">
-          <Route index element={<DetailPage />} />
-          <Route path="edit" element={<EditPage />} />
+        <Route path="/:id" element={<Layout notes={notes} />}>
+          <Route index element={<DetailPage deleteNote={deleteNote} />} />
+          <Route
+            path="edit"
+            element={
+              <EditPage
+                availableTags={tags}
+                createNewTag={createNewTag}
+                onSubmit={editNote}
+              />
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

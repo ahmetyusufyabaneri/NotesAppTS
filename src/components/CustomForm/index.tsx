@@ -10,6 +10,9 @@ const CustomForm = ({
   availableTags,
   handleSubmit,
   createTag,
+  title = "",
+  markdown = "",
+  tags = [],
 }: CreatePageProps) => {
   const [selectedTags, setSelectedTags] = useState<ITag[]>([]);
   const navigate = useNavigate();
@@ -17,7 +20,7 @@ const CustomForm = ({
   const titleRef = useRef<HTMLInputElement>(null);
   const markdownRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSend = (e: FormEvent) => {
+  const handleSend = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     handleSubmit({
@@ -35,7 +38,7 @@ const CustomForm = ({
           <Col>
             <Form.Group controlId="title">
               <Form.Label>Title</Form.Label>
-              <Form.Control ref={titleRef} required />
+              <Form.Control defaultValue={title} ref={titleRef} required />
             </Form.Group>
           </Col>
           <Col>
@@ -43,7 +46,7 @@ const CustomForm = ({
               <Form.Label>Tags</Form.Label>
               <ReactSelect
                 isMulti
-                onChange={(all_tags) => console.log(all_tags)}
+                onChange={(all_tags) => setSelectedTags(all_tags)}
                 onCreateOption={(text) => {
                   const newTag: ITag = { label: text, value: v4() };
 
@@ -52,7 +55,7 @@ const CustomForm = ({
                   setSelectedTags([...selectedTags, newTag]);
                 }}
                 options={availableTags}
-                value={selectedTags}
+                defaultValue={tags}
               />
             </Form.Group>
           </Col>
@@ -60,6 +63,7 @@ const CustomForm = ({
         <Form.Group controlId="markdown">
           <Form.Label>Content</Form.Label>
           <Form.Control
+            defaultValue={markdown}
             ref={markdownRef}
             as={"textarea"}
             rows={12}
