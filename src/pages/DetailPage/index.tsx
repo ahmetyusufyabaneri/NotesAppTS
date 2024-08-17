@@ -1,4 +1,4 @@
-import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { INote } from "../../types";
 import { Badge, Button, Col, Row, Stack } from "react-bootstrap";
 import Markdown from "react-markdown";
