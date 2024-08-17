@@ -8,7 +8,6 @@ type DetailPageProps = {
 };
 
 const DetailPage = ({ deleteNote }: DetailPageProps) => {
-  console.log(deleteNote);
   const found: INote = useOutletContext();
 
   const navigate = useNavigate();

@@ -14,7 +14,7 @@ const CustomForm = ({
   markdown = "",
   tags = [],
 }: CreatePageProps) => {
-  const [selectedTags, setSelectedTags] = useState<ITag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<ITag[] | []>([]);
   const navigate = useNavigate();
 
   const titleRef = useRef<HTMLInputElement>(null);
