@@ -15,5 +15,3 @@
 <li>@uidotdev/usehooks</li>
 
 </ul>
-
-<h1>Screen Gif</h1>
